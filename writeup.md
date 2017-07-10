@@ -77,7 +77,6 @@ My final model consisted of the following layers:
 | fallten	|           Input = 5x5x16. Output = 400. |
 | Fully connected		| Input = 400. Output = 120.  |
 | RELU	|                                        |
-| Dropout	|                       keep_pro=0.55                 |
 | Fully connected		|Input = 120. Output = 84  |
 | RELU	|                                        |
 | Dropout	|                       keep_pro=0.55                 |
@@ -129,7 +128,7 @@ The images I picked contain three characters that I think may be difficult to cl
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-The accuracy is terrible, I think the main reason for this result is that the training dataset is so limited, as we can see from the dataset distribution, some traffic signs only got a few training datas. I will improve this by generate some fake data from the exist train dataset.
+The accuracy is terrible(0 out of 5), I think the main reason for this result is that the training dataset is so limited, as we can see from the dataset distribution, some traffic signs only got a few training datas. I will improve this by generate some fake data from the exist train dataset.
 
 Another reason is that there must be some better architecture out there for this task, I will improve my architecture after some study and experiment.
 
@@ -140,3 +139,5 @@ See the first code cell output of "Output Top 5 Softmax Probabilities ..." in th
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+
+
