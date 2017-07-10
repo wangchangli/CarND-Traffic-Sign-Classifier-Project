@@ -48,20 +48,15 @@ signs data set:
 
 ####2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
-
-![alt text][data_distribution.png]
+See the first code cell output of "Include an exploratory visualization of the dataset" in the traffic_Sign_Classifier.html for the visualization of the dataset(include data distribution chart).
 
 ###Design and Test a Model Architecture
 
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because the color of the traffic sign doesn't matter, and it also accelerates the training process. 
+As a first step, I decided to convert the images to grayscale because the color of the traffic sign doesn't affect the result, and it also accelerates the training process. 
 
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][gray_before.png]
-![alt text][gray_after.png]
+See the first code cell output of "Pre-process the Data Set"  in the traffic_Sign_Classifier.html for the gray images.
 
 As a last step, I normalized the image data  to the range (-1,1) because it makes the optimizer to do its job easily as mentioned in the lesson.
 
@@ -82,8 +77,10 @@ My final model consisted of the following layers:
 | fallten	|           Input = 5x5x16. Output = 400. |
 | Fully connected		| Input = 400. Output = 120.  |
 | RELU	|                                        |
+| Dropout	|                       keep_pro=0.55                 |
 | Fully connected		|Input = 120. Output = 84  |
 | RELU	|                                        |
+| Dropout	|                       keep_pro=0.55                 |
 | Fully connected		|Input = 84. Output = 43  |
  
 
@@ -93,8 +90,8 @@ My final model consisted of the following layers:
 To train the model, I used an settings of:
 * Adam Optimizer
 * batch size 128
-* eproch 50
-* learining rate 0.001
+* eproch 100
+* learining rate 0.0008
 * mu 0
 * sigma 0.1
 
@@ -102,17 +99,21 @@ To train the model, I used an settings of:
 
 My final model results were:
 * training set accuracy of  ?
-* validation set accuracy of 0.945
-* test set accuracy of 0.916
+* validation set accuracy of 0.937
+* test set accuracy of 0.925
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
-answer: I used the LaNet architecture, 
+**I used the LaNet architecture first, because it is a well known CNN architecture for image classification.**
 * What were some problems with the initial architecture?
+**The input dataset is not normalized, the architecture may overfitting.**
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+**I normalized the input data, and add dropout to reduce the overfitting risk.**
 * Which parameters were tuned? How were they adjusted and why?
+**Eproch was tuned like this, 20 -> 50 -> 100, I stopped at 100, because I found the tranning begins to converge.**
+**Learning rate of was set to 0.0008 finally after trying other values.**
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
-
+**A dropout layer can reduce the overfitting risk.**
 If a well known architecture was chosen:
 * What architecture was chosen?
 * Why did you believe it would be relevant to the traffic sign application?
@@ -123,46 +124,19 @@ If a well known architecture was chosen:
 
 ####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five German traffic signs that I found on the web:
-
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
-
-The first image might be difficult to classify because ...
+See the Traffic_Sign_Classifier.html for details.
+The images I picked contain three characters that I think may be difficult to classify:1) some images contain watermarks; 2) The traffic signs in some images are not in the center as the dataset show;3) some images are not token from the front.
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-Here are the results of the prediction:
+The accuracy is terrible, I think the main reason for this result is that the training dataset is so limited, as we can see from the dataset distribution, some traffic signs only got a few training datas. I will improve this by generate some fake data from the exist train dataset.
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
-
-
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+Another reason is that there must be some better architecture out there for this task, I will improve my architecture after some study and experiment.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+See the first code cell output of "Output Top 5 Softmax Probabilities ..." in the traffic_Sign_Classifier.html.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
-
-
-For the second image ... 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
-
